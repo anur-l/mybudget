@@ -24,31 +24,41 @@
       </div>
     </div>
     <div class="render">
-      <div>
+      <div class="inputdata">
         <label>Description</label>
         <input type="text">
       </div>
-      <div>
+      <div class="inputdata">
         <label>Value</label>
         <input type="number" </input>
       </div>
-      <div>
-         <div class="combo"> 
-        <label for="Used">Type:</label>
-        <input list="type_money" id="Used" name="Expense" placeholder="Expense">
-        <datalist id="type_money">
-          <option value="Rent">
-          <option value="Food">
-          <option value="Utilites">
-          <option value="Transport">
-          <option value="Salary">
-          <option value="Other">
-        </datalist>
-         </div>   
-      </div>
-      <div>
+      <div class="select_box">
+        <div class="combo">
+          <div class="option">
+            <input type="radio" class="radio" id="rent" name="category">
+            <label for="rent">Rent</label>
+          </div>
+          <div class="option">
+            <input type="radio" class="radio" id="food" name="category">
+            <label for="food">Food</label>
+          </div>
+          <div class="option">
+            <input type="radio" class="radio" id="transport" name="category">
+            <label for="transport">Transport</label>
+          </div>
+          <div class="option">
+            <input type="radio" class="radio" id="utilitie" name="category">
+            <label for="utilitie">Utilities</label>
+          </div>
+          <div class="option">
+            <input type="radio" class="radio" id="other" name="category">
+            <label for="other">Others</label>
+          </div>
+        </div>
+        <div class="heading_select">Type</div>
       </div>
   </section>
+  <script src="main.js"></script>
 </body>
 
 </html>
