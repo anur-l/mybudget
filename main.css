@@ -1,3 +1,7 @@
+body {
+  background-color: rgba(249 250 251 0.4);
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -20,27 +24,42 @@ input:focus {
   display: flex;
   flex-direction: row;
   padding: 0 1rem;
+  background-color: grey;
 }
 
 .render {
- padding: 0.5rem; 
- flex: 1; 
- background-color: #eeeeee; 
+  flex: 3;
+  padding: 3rem 1rem;
+  background-color: #eeeeee;
 }
 
 .render input {
- outline: none;
+  outline: none;
 }
+
 .money {
-  background-color: green;
   box-shadow: 0 1px 1px rgba(200, 200, 200, 0.5);
   padding: 1rem;
   margin: 1rem 0rem;
 }
 
-.inputdata{
- display: flex;
- flex-direction: column; 
+.bmoney {
+  background-color: #eeffee;
+  padding: 1rem;
+  padding-right: 15rem;
+  margin: 1rem;
+  border-left: 5px solid green;
+  border-right: 5px solid green;
+  border-radius: 9px;
+}
+
+.bmoney p{
+ font-size: 2rem;
+}
+
+.inputdata {
+  display: flex;
+  flex-direction: column;
 }
 
 .combo {
@@ -53,21 +72,22 @@ input:focus {
 
 .select_box {
   display: flex;
-  flex-direction: column-reverse; 
+  flex-direction: column-reverse;
   width: 400px;
 }
+
 .combo .option {
-  width: 300px; 
+  width: 300px;
   background-color: #dddddd;
-  padding: 0.5rem; 
+  padding: 0.5rem;
 }
+
 .option:hover {
- background-color: #ffffff;
+  background-color: #ffffff;
 }
-.option input{
+
+.option input {
   display: none;
 }
 
-
-.heading_select {
-}
+.heading_select {}
