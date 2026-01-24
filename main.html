@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title></title>
+  <link href="main.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <h1>My budget</h1>
+    <nav>
+      <a href="about.html">About us</a>
+    </nav>
+  </header>
+  <section>
+    <div class="show">
+      <div class="money">
+        <div class="bmoney">Income</div>
+        <div class="bmoney">Expense</div>
+        <div class="bmoney">Balance</div>
+      </div>
+    </div>
+    <div class="render">
+      <div>
+        <label>Description</label>
+        <input type="text">
+      </div>
+      <div>
+        <label>Value</label>
+        <input type="number" </input>
+      </div>
+      <div>
+         <div class="combo"> 
+        <label for="Used">Type:</label>
+        <input list="type_money" id="Used" name="Expense" placeholder="Expense">
+        <datalist id="type_money">
+          <option value="Rent">
+          <option value="Food">
+          <option value="Utilites">
+          <option value="Transport">
+          <option value="Salary">
+          <option value="Other">
+        </datalist>
+         </div>   
+      </div>
+      <div>
+      </div>
+  </section>
+</body>
+
+</html>
