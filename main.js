@@ -9,10 +9,10 @@ const descrip = document.querySelector("#descp");
 const num = document.querySelector("#num");
 /** @type {NodeListOf<HTMLInputElement>} */
 const radios = document.querySelectorAll('input[name="category"]');
-const list_t = document.querySelector(".transaction");
+let list_t;
 const btn = document.querySelector(".verify");
 /** @type {Object[]} */
-let historyList = [];
+let history_list = [];
 let typebudget = {
   rent: 0,
   food: 0,
@@ -20,15 +20,25 @@ let typebudget = {
   utilitie: 0,
   other: 0,
 };
+let time_date = new Date().toLocaleDateString();
+
+window.onload = function() {
+  const save_element = localStorage.getItem("save_element");
+  list_t = document.querySelector(".transaction");
+  if(time_date != history_list)
+  if (save_element && list_t) {
+    list_t.innerHTML = save_element;
+  }
+};
 
 const savebudget = localStorage.getItem("tbudget");
 if (savebudget) {
   typebudget = JSON.parse(savebudget);
 }
 
-const savedHistory = localStorage.getItem("budgetHistory");
-if (savedHistory) {
-  historyList = JSON.parse(savedHistory);
+const saving_history = localStorage.getItem("budgetHistory");
+if (saving_history) {
+  history_list = JSON.parse(saving_history);
 }
 
 btn.addEventListener("click", () => {
@@ -59,27 +69,30 @@ btn.addEventListener("click", () => {
     description: descrip.value,
     money: Number(num.value),
     expense: selectitem,
-    date: Date.now(),
+    date: timedate,
   };
 
-  listli = document.createElement("div");
-  para = document.createElement("p");
+  /** @type {HTMLElement | null} */
+  let listli = document.createElement("div");
+  listli.style.display = "flex";
+  listli.style.justifyContent = "space-evenly";
+  let para = document.createElement("p");
 
   console.log("check", selectitem);
 
   para.textContent = selectitem;
-  para_num = document.createElement("p");
+  let para_num = document.createElement("p");
   para_num.textContent = infobudget.money;
-  historyList.push(infobudget);
+  history_list.push(infobudget);
   listli.appendChild(para);
   listli.appendChild(para_num);
-
   if (list_t) {
     list_t.appendChild(listli);
   } else {
     console.error("Error there problem");
   }
-  localStorage.setItem("budgetHistory", JSON.stringify(historyList));
+  localStorage.setItem("save_element", list_t.innerHTML);
+  localStorage.setItem("budgetHistory", JSON.stringify(history_list));
   descrip.value = "";
   num.value = "";
   return infobudget;
