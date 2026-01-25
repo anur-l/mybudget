@@ -9,7 +9,7 @@ const descrip = document.querySelector("#descp");
 const num = document.querySelector("#num");
 /** @type {NodeListOf<HTMLInputElement>} */
 const radios = document.querySelectorAll('input[name="category"]');
-let list_t;
+const list_t = document.querySelector(".transaction");
 const btn = document.querySelector(".verify");
 /** @type {Object[]} */
 let history_list = [];
@@ -24,8 +24,7 @@ let time_date = new Date().toLocaleDateString();
 
 window.onload = function() {
   const save_element = localStorage.getItem("save_element");
-  list_t = document.querySelector(".transaction");
-  if(time_date != history_list)
+ // if(time_date != history_list)
   if (save_element && list_t) {
     list_t.innerHTML = save_element;
   }
@@ -53,6 +52,9 @@ btn.addEventListener("click", () => {
       selectitem = rb.id;
     }
   });
+  if (selectitem === "") {
+      selectitem = "other";
+  }
   if (selectitem === "rent") {
     typebudget.rent += Number(num.value);
   } else if (selectitem === "food") {
@@ -69,13 +71,15 @@ btn.addEventListener("click", () => {
     description: descrip.value,
     money: Number(num.value),
     expense: selectitem,
-    date: timedate,
+    date: time_date,
   };
 
   /** @type {HTMLElement | null} */
   let listli = document.createElement("div");
   listli.style.display = "flex";
   listli.style.justifyContent = "space-evenly";
+  listli.style.background = "white";
+  listli.style.padding = ""
   let para = document.createElement("p");
 
   console.log("check", selectitem);

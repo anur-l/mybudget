@@ -9,6 +9,9 @@ header {
 
 section {
   display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
 }
 
 input {
@@ -19,17 +22,11 @@ input:focus {
   border-color: #007bff;
 }
 
-section {
-  display: flex;
-  flex-direction: column;
-}
-
 .show {
-  flex: 1;
   display: flex;
   flex-direction: row;
   padding: 0 1rem;
-  background-color: grey;
+  background-color: transparent;
 }
 
 .renderbox {
@@ -38,8 +35,7 @@ section {
 
 .render {
   flex: 1;
-  padding: 3rem 1rem;
-  background-color: #eeeeee;
+  padding: 1rem;
 }
 
 .render input {
@@ -47,50 +43,32 @@ section {
 }
 
 .box {
-  flex: 3;
+  flex: 2;
   background-color: green;
 }
 
 .money {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  align-content: center;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
   width: 100%;
   box-shadow: 0 1px 1px rgba(200, 200, 200, 0.5);
   padding: 1rem;
-  margin: 1rem 0rem;
 }
 
 .bmoney {
   background-color: #eeffee;
-  padding: 1rem;
-  padding-right: 15rem;
-  margin: 1rem;
+  min-width: 200px;
+  padding: 1.5rem;
+  margin: 0.5rem;
   border-left: 5px solid green;
   border-right: 5px solid green;
   border-radius: 9px;
+  flex: 1;
 }
 
 .bmoney p {
   font-size: 2rem;
-}
-
-@media (min-width: 768px) {
-  .bmoney {
-    padding-right: 15rem;
-  }
-
-  .money {
-    flex-direction: row;
-  }
-}
-
-@media (max-width: 767px) {
-  .money {
-    flex-direction: column;
-  }
 }
 
 .inputdata {
@@ -114,9 +92,10 @@ section {
 }
 
 .combo .option {
-  width: 300px;
+  width: 100%;
+  max-width: 400px;
   background-color: #dddddd;
-  padding: 0.5rem;
+  padding: 0.8rem;
 }
 
 .option:hover {
@@ -127,3 +106,38 @@ section {
   display: none;
 }
 
+@media (min-width: 1024px) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .bmoney {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .money {
+    display: flex;
+    width: 90%;
+  }
+
+  .money {
+    flex-direction: column;
+    width: 250px;
+  }
+
+  .bmoney {
+    flex: 1;
+    padding: 1rem;
+  }
+
+  .renderbox {
+    flex: 2;
+    flex-direction: row;
+    gap: 2rem;
+  }
+  section {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
