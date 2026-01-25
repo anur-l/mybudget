@@ -19,6 +19,11 @@ input:focus {
   border-color: #007bff;
 }
 
+section {
+  display: flex;
+  flex-direction: column;
+}
+
 .show {
   flex: 1;
   display: flex;
@@ -27,8 +32,12 @@ input:focus {
   background-color: grey;
 }
 
+.renderbox {
+  display: flex;
+}
+
 .render {
-  flex: 3;
+  flex: 1;
   padding: 3rem 1rem;
   background-color: #eeeeee;
 }
@@ -37,7 +46,18 @@ input:focus {
   outline: none;
 }
 
+.box {
+  flex: 3;
+  background-color: green;
+}
+
 .money {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  width: 100%;
   box-shadow: 0 1px 1px rgba(200, 200, 200, 0.5);
   padding: 1rem;
   margin: 1rem 0rem;
@@ -53,8 +73,24 @@ input:focus {
   border-radius: 9px;
 }
 
-.bmoney p{
- font-size: 2rem;
+.bmoney p {
+  font-size: 2rem;
+}
+
+@media (min-width: 768px) {
+  .bmoney {
+    padding-right: 15rem;
+  }
+
+  .money {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 767px) {
+  .money {
+    flex-direction: column;
+  }
 }
 
 .inputdata {
@@ -73,7 +109,8 @@ input:focus {
 .select_box {
   display: flex;
   flex-direction: column-reverse;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .combo .option {
@@ -89,5 +126,3 @@ input:focus {
 .option input {
   display: none;
 }
-
-.heading_select {}

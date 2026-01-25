@@ -9,7 +9,10 @@ const descrip = document.querySelector("#descp");
 const num = document.querySelector("#num");
 /** @type {NodeListOf<HTMLInputElement>} */
 const radios = document.querySelectorAll('input[name="category"]');
-
+const list_t = document.querySelector(".transaction");
+const btn = document.querySelector(".verify");
+/** @type {Object[]} */
+let historyList = [];
 let typebudget = {
   rent: 0,
   food: 0,
@@ -18,20 +21,27 @@ let typebudget = {
   other: 0,
 };
 
-//const savepersonal = localStorage.getItem("pbudget");
 const savebudget = localStorage.getItem("tbudget");
 if (savebudget) {
   typebudget = JSON.parse(savebudget);
 }
 
-function savebudger() {
-  if (!num) {
+const savedHistory = localStorage.getItem("budgetHistory");
+if (savedHistory) {
+  historyList = JSON.parse(savedHistory);
+}
+
+btn.addEventListener("click", () => {
+  console.log("check button");
+  if (num.value.trim() === "") {
     alert("Missing input");
     return;
   }
   let selectitem = "";
   radios.forEach((rb) => {
-    if (rb.checked) selectitem = rb.id;
+    if (rb.checked) {
+      selectitem = rb.id;
+    }
   });
   if (selectitem === "rent") {
     typebudget.rent += Number(num.value);
@@ -51,10 +61,29 @@ function savebudger() {
     expense: selectitem,
     date: Date.now(),
   };
+
+  listli = document.createElement("div");
+  para = document.createElement("p");
+
+  console.log("check", selectitem);
+
+  para.textContent = selectitem;
+  para_num = document.createElement("p");
+  para_num.textContent = infobudget.money;
+  historyList.push(infobudget);
+  listli.appendChild(para);
+  listli.appendChild(para_num);
+
+  if (list_t) {
+    list_t.appendChild(listli);
+  } else {
+    console.error("Error there problem");
+  }
+  localStorage.setItem("budgetHistory", JSON.stringify(historyList));
   descrip.value = "";
   num.value = "";
   return infobudget;
-}
+});
 head_sec.addEventListener("click", () => {
   combo.style.display = combo.style.display === "block" ? "none" : "block";
 });
@@ -62,6 +91,10 @@ head_sec.addEventListener("click", () => {
 option.forEach((opt) => {
   opt.addEventListener("click", () => {
     let displaying = opt.querySelector("label").innerText;
+    const radio = opt.querySelector('input[type="radio"]');
+    if (radio) {
+      radio.checked = true;
+    }
     head_sec.innerHTML = `Type: <strong>${displaying}</strong>`;
     combo.style.display = "none";
   });
