@@ -2,17 +2,21 @@
 const head_sec = document.querySelector(".heading_select");
 /** @type {HTMLElement | null} */
 const combo = document.querySelector(".combo");
+/** @type {NodeListOf<HTMLElement>} */
 const option = document.querySelectorAll(".option");
-/** @type {HTMLElement | null} */
+/** @type {HTMLInputElement | null} */
 const descrip = document.querySelector("#descp");
-/** @type {HTMLElement | null} */
+/** @type {HTMLInputElement | null} */
 const num = document.querySelector("#num");
 /** @type {NodeListOf<HTMLInputElement>} */
 const radios = document.querySelectorAll('input[name="category"]');
+/** @type {HTMLElement | null} */
 const list_t = document.querySelector(".transaction");
+/** @type {HTMLElement | null} */
 const btn = document.querySelector(".verify");
-/** @type {Object[]} */
+/** @type {any[]} */
 let history_list = [];
+
 let typebudget = {
   rent: 0,
   food: 0,
@@ -20,16 +24,6 @@ let typebudget = {
   utilitie: 0,
   other: 0,
 };
-let time_date = new Date().toLocaleDateString();
-
-window.onload = function() {
-  const save_element = localStorage.getItem("save_element");
- // if(time_date != history_list)
-  if (save_element && list_t) {
-    list_t.innerHTML = save_element;
-  }
-};
-
 const savebudget = localStorage.getItem("tbudget");
 if (savebudget) {
   typebudget = JSON.parse(savebudget);
@@ -39,6 +33,49 @@ const saving_history = localStorage.getItem("budgetHistory");
 if (saving_history) {
   history_list = JSON.parse(saving_history);
 }
+
+function read(item) {
+  if (!item) return;
+  /** @type {HTMLElement | null} */
+  let listli = document.createElement("div");
+  listli.style.display = "flex";
+  listli.style.justifyContent = "space-evenly";
+  listli.style.background = "white";
+  listli.style.padding = "";
+  listli.style.color = "#000";
+
+  let para = document.createElement("p");
+  para.textContent = item.expense;
+
+  let para_num = document.createElement("p");
+  para_num.textContent = item.money;
+
+  listli.appendChild(para);
+  listli.appendChild(para_num);
+  list_t.appendChild(listli);
+}
+
+window.onload = function() {
+  // console.log("Debugging");
+  // console.log("tbudget: ", localStorage.getItem("tbudget"));
+  // console.log("budgethistory:", localStorage.getItem("budgetHistory"));
+  // console.log("save_element:", localStorage.getItem("save_element"));
+  //  console.log("History:", history_list);
+
+  const saving_element = localStorage.getItem("save_element");
+  if (saving_element && list_t) {
+   // console.log("loading save_element");
+    list_t.innerHTML = saving_element;
+  } else {
+  //  console.log("building hisotry");
+    if (list_t) {
+      list_t.innerHTML = "";
+      history_list.forEach((item) => {
+        read(item);
+      });
+    }
+  }
+};
 
 btn.addEventListener("click", () => {
   console.log("check button");
@@ -53,7 +90,7 @@ btn.addEventListener("click", () => {
     }
   });
   if (selectitem === "") {
-      selectitem = "other";
+    selectitem = "other";
   }
   if (selectitem === "rent") {
     typebudget.rent += Number(num.value);
@@ -66,41 +103,25 @@ btn.addEventListener("click", () => {
   } else {
     typebudget.other += Number(num.value);
   }
-  localStorage.setItem("tbudget", JSON.stringify(typebudget));
   let infobudget = {
+    id: Date.now(),
     description: descrip.value,
     money: Number(num.value),
     expense: selectitem,
-    date: time_date,
+    date: new Date().toDateString(),
   };
-
-  /** @type {HTMLElement | null} */
-  let listli = document.createElement("div");
-  listli.style.display = "flex";
-  listli.style.justifyContent = "space-evenly";
-  listli.style.background = "white";
-  listli.style.padding = ""
-  let para = document.createElement("p");
-
-  console.log("check", selectitem);
-
-  para.textContent = selectitem;
-  let para_num = document.createElement("p");
-  para_num.textContent = infobudget.money;
   history_list.push(infobudget);
-  listli.appendChild(para);
-  listli.appendChild(para_num);
-  if (list_t) {
-    list_t.appendChild(listli);
-  } else {
-    console.error("Error there problem");
-  }
-  localStorage.setItem("save_element", list_t.innerHTML);
+  localStorage.setItem("tbudget", JSON.stringify(typebudget));
   localStorage.setItem("budgetHistory", JSON.stringify(history_list));
+
+  read(infobudget);
+
+  localStorage.setItem("save_element", list_t.innerHTML);
   descrip.value = "";
   num.value = "";
   return infobudget;
 });
+
 head_sec.addEventListener("click", () => {
   combo.style.display = combo.style.display === "block" ? "none" : "block";
 });
@@ -108,6 +129,7 @@ head_sec.addEventListener("click", () => {
 option.forEach((opt) => {
   opt.addEventListener("click", () => {
     let displaying = opt.querySelector("label").innerText;
+    /** @type {HTMLInputElement | null} */
     const radio = opt.querySelector('input[type="radio"]');
     if (radio) {
       radio.checked = true;
