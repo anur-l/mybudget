@@ -38,12 +38,14 @@ function read(item) {
   if (!item) return;
   /** @type {HTMLElement | null} */
   let listli = document.createElement("div");
+  listli.classList.add("items");
   listli.style.display = "flex";
   listli.style.justifyContent = "space-around";
-  listli.style.background = "white";
+  listli.style.background = "#ffffff";
+  listli.style.borderLeft = "6px solid #74ed02";
+  listli.style.boxShadow = "0 2px 8px rgba(0,0,0,0.1)";
   listli.style.padding = "1rem";
-  listli.style.color = "#000";
-  listli.style.background = "lightgreen";
+  listli.style.color = "#333";
   listli.style.borderRadius = "5px";
   listli.style.marginBottom = "10px";
 
@@ -156,6 +158,5 @@ option.forEach((opt) => {
       radio.checked = true;
     }
     head_sec.innerHTML = `Type: <strong>${displaying}</strong>`;
-    combo.style.display = "none";
   });
 });
