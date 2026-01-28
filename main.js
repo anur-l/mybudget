@@ -39,20 +39,42 @@ function read(item) {
   /** @type {HTMLElement | null} */
   let listli = document.createElement("div");
   listli.style.display = "flex";
-  listli.style.justifyContent = "space-evenly";
+  listli.style.justifyContent = "space-around";
   listli.style.background = "white";
-  listli.style.padding = "";
+  listli.style.padding = "1rem";
   listli.style.color = "#000";
+  listli.style.background = "lightgreen";
+  listli.style.borderRadius = "5px";
+  listli.style.marginBottom = "10px";
 
   let para = document.createElement("p");
   para.textContent = item.expense;
+  para.style.padding = "0.5rem";
 
   let para_num = document.createElement("p");
   para_num.textContent = item.money;
+  para_num.style.padding = "0.5rem";
+
+  let delbtn = document.createElement("button");
+  delbtn.classList.add('del');
+  delbtn.innerText = "Delete";
+  let para_data = document.createElement("p");
+  para_data.textContent = item.date;
+  para_data.style.padding = "0.5rem";
 
   listli.appendChild(para);
   listli.appendChild(para_num);
+  listli.appendChild(para_data);
+  listli.appendChild(delbtn);
   list_t.appendChild(listli);
+  delbtn.addEventListener("click", () => {
+    history_list = history_list.filter((t) => t.id !== item.id);
+    typebudget[item.expense] -= item.money;
+    localStorage.setItem("budgetHistory", JSON.stringify(history_list));
+    localStorage.setItem("tbudget", JSON.stringify(typebudget));
+    listli.remove();
+    localStorage.setItem("save_element", list_t.innerHTML);
+  });
 }
 
 window.onload = function() {
@@ -64,10 +86,10 @@ window.onload = function() {
 
   const saving_element = localStorage.getItem("save_element");
   if (saving_element && list_t) {
-   // console.log("loading save_element");
+    // console.log("loading save_element");
     list_t.innerHTML = saving_element;
   } else {
-  //  console.log("building hisotry");
+    //  console.log("building hisotry");
     if (list_t) {
       list_t.innerHTML = "";
       history_list.forEach((item) => {
@@ -113,7 +135,6 @@ btn.addEventListener("click", () => {
   history_list.push(infobudget);
   localStorage.setItem("tbudget", JSON.stringify(typebudget));
   localStorage.setItem("budgetHistory", JSON.stringify(history_list));
-
   read(infobudget);
 
   localStorage.setItem("save_element", list_t.innerHTML);

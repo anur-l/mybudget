@@ -1,5 +1,10 @@
+*{
+  margin: 0rem;
+}
+
 body {
-  background-color: rgba(249 250 251 0.4);
+  /* background-color: rgba(249 250 251 0.4); */
+ background: #ffffff;
 }
 
 header {
@@ -21,6 +26,9 @@ input {
 input:focus {
   border-color: #007bff;
 }
+header {
+ background-color: #f4ffde;
+}
 
 .show {
   display: flex;
@@ -31,11 +39,17 @@ input:focus {
 
 .renderbox {
   display: flex;
+  flex: wrap;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  min-width: 100px;
 }
 
 .render {
+ 
+  background-color: #defccc;
   flex: 1;
-  padding: 1rem;
+  padding: 1.3rem;
 }
 
 .render input {
@@ -44,12 +58,11 @@ input:focus {
 
 .box {
   flex: 2;
-  background-color: green;
+  background-color: #defccc;
 }
 
 .money {
   display: flex;
-  /* flex-direction: column; */
   flex-wrap: wrap;
   width: 100%;
   box-shadow: 0 1px 1px rgba(200, 200, 200, 0.5);
@@ -58,7 +71,7 @@ input:focus {
 
 .bmoney {
   background-color: #eeffee;
-  min-width: 200px;
+  min-width: 100px;
   padding: 1.5rem;
   margin: 0.5rem;
   border-left: 5px solid green;
@@ -83,7 +96,7 @@ input:focus {
   padding: 1rem;
   transition: background 0.3;
 }
-
+/*:
 .select_box {
   display: flex;
   flex-direction: column-reverse;
@@ -104,6 +117,18 @@ input:focus {
 
 .option input {
   display: none;
+}*/
+
+.del {
+  padding: 0.5rem 0.5rem;
+  background-color: #cae500;
+  border-radius: 8px;
+  outline: none;
+}
+del:hover{
+  transform: scale(1.05);
+  outline: none;
+
 }
 
 @media (min-width: 1024px) {
