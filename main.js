@@ -1,4 +1,8 @@
 /** @type {HTMLElement | null} */
+const incomebtn = document.querySelector("#incomeradio");
+/** @type {HTMLElement | null} */
+const expensebtn = document.querySelector("#expenseradio");
+/** @type {HTMLElement | null} */
 const head_sec = document.querySelector(".heading_select");
 /** @type {HTMLElement | null} */
 const combo = document.querySelector(".combo");
@@ -23,6 +27,12 @@ let typebudget = {
   transport: 0,
   utilitie: 0,
   other: 0,
+};
+
+let totalsum = {
+  income: 0,
+  expense: 0,
+  balance: 1000,
 };
 const savebudget = localStorage.getItem("tbudget");
 if (savebudget) {
@@ -58,7 +68,7 @@ function read(item) {
   para_num.style.padding = "0.5rem";
 
   let delbtn = document.createElement("button");
-  delbtn.classList.add('del');
+  delbtn.classList.add("del");
   delbtn.innerText = "Delete";
   let para_data = document.createElement("p");
   para_data.textContent = item.date;
@@ -102,9 +112,20 @@ window.onload = function() {
 };
 
 btn.addEventListener("click", () => {
+  /** @type {HTMLElement | null} */
+  let incomep = document.querySelector("#income");
+  /** @type {HTMLElement | null} */
+  let expensep = document.querySelector("#expense");
+  /** @type {HTMLElement | null} */
+  let balancep = document.querySelector("#balance");
   console.log("check button");
   if (num.value.trim() === "") {
     alert("Missing input");
+    return;
+  }
+  if (incomebtn.checked === true) {
+    totalsum.income = num.value;
+    incomep.innerText = totalsum.income;
     return;
   }
   let selectitem = "";
@@ -132,13 +153,30 @@ btn.addEventListener("click", () => {
     description: descrip.value,
     money: Number(num.value),
     expense: selectitem,
-    date: new Date().toDateString(),
+    date: new Date()
+      .toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+      .replace(",", ""),
   };
+
   history_list.push(infobudget);
   localStorage.setItem("tbudget", JSON.stringify(typebudget));
   localStorage.setItem("budgetHistory", JSON.stringify(history_list));
+
   read(infobudget);
 
+  let amount = Number(totalsum.balance) - infobudget.money;
+  if (amount) {
+    totalsum.balance = amount;
+    totalsum.expense += infobudget.money;
+    expensep.innerText = totalsum.expense;
+    balancep.innerText = totalsum.balance;
+  }
+
+  localStorage.setItem("mybalance", totalsum);
   localStorage.setItem("save_element", list_t.innerHTML);
   descrip.value = "";
   num.value = "";

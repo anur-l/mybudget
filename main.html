@@ -21,23 +21,31 @@
       <div class="money">
         <div class="bmoney">
           <h3>Income</h3>
-          <p>0
-          <p>
+          <p id="income">0</p>
         </div>
         <div class="bmoney">
           <h3>Expense</h3>
-          <p>0
-          <p>
+          <p id="expense">0</p>
         </div>
         <div class="bmoney">
           <h3>Balance</h3>
-          <p>0
-          <p>
+          <p id="balance">10000</p>
         </div>
       </div>
     </div>
     <div class="renderbox">
       <div class="render">
+        <div class="btnmoney">
+
+          <div class="typemoney">
+            <input type="radio" class="radio" id="incomeradio" name="typemoney">
+            <label for="incomeradio">Income</label>
+          </div>
+          <div class="typemoney">
+            <input type="radio" class="radio" id="expenseradio" name="typemoney">
+            <label for="expenseradio">Expense</label>
+          </div>
+        </div>
         <div class="inputdata">
           <label>Description</label>
           <input type="text" id="descp">
@@ -72,7 +80,7 @@
           </div>
 
         </div>
-          <button class="verify">Verify</button>
+        <button class="verify">Verify</button>
       </div>
       <div class="box">
         <div class="transaction">
