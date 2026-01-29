@@ -1,6 +1,6 @@
-/** @type {HTMLElement | null} */
+/** @type {HTMLInputElement | null} */
 const incomebtn = document.querySelector("#incomeradio");
-/** @type {HTMLElement | null} */
+/** @type {HTMLInputElement | null} */
 const expensebtn = document.querySelector("#expenseradio");
 /** @type {HTMLElement | null} */
 const head_sec = document.querySelector(".heading_select");
@@ -18,6 +18,15 @@ const radios = document.querySelectorAll('input[name="category"]');
 const list_t = document.querySelector(".transaction");
 /** @type {HTMLElement | null} */
 const btn = document.querySelector(".verify");
+/** @type {HTMLElement | null} */
+const category = document.querySelector(".category_radio");
+/** @type {HTMLElement | null} */
+let incomep = document.querySelector("#income");
+/** @type {HTMLElement | null} */
+let expensep = document.querySelector("#expense");
+/** @type {HTMLElement | null} */
+let balancep = document.querySelector("#balance");
+
 /** @type {any[]} */
 let history_list = [];
 
@@ -32,8 +41,11 @@ let typebudget = {
 let totalsum = {
   income: 0,
   expense: 0,
-  balance: 1000,
+  balance: 0,
 };
+
+expensebtn.checked == true;
+
 const savebudget = localStorage.getItem("tbudget");
 if (savebudget) {
   typebudget = JSON.parse(savebudget);
@@ -44,15 +56,26 @@ if (saving_history) {
   history_list = JSON.parse(saving_history);
 }
 
+const get_total = localStorage.getItem("mybalance");
+if (get_total) {
+  totalsum = JSON.parse(get_total);
+}
+
 function read(item) {
   if (!item) return;
-  /** @type {HTMLElement | null} */
+  expensep.innerText = totalsum.expense.toString();
+  balancep.innerText = totalsum.balance.toString();
+  incomep.innerText = totalsum.income.toString();
   let listli = document.createElement("div");
   listli.classList.add("items");
   listli.style.display = "flex";
   listli.style.justifyContent = "space-around";
   listli.style.background = "#ffffff";
-  listli.style.borderLeft = "6px solid #74ed02";
+  if (item.budget === true) {
+    listli.style.borderLeft = "6px solid #74ed02";
+  } else {
+    listli.style.borderLeft = "6px solid red";
+  }
   listli.style.boxShadow = "0 2px 8px rgba(0,0,0,0.1)";
   listli.style.padding = "1rem";
   listli.style.color = "#333";
@@ -79,10 +102,19 @@ function read(item) {
   listli.appendChild(para_data);
   listli.appendChild(delbtn);
   list_t.appendChild(listli);
+
   delbtn.addEventListener("click", () => {
+    if (item.budget == true) {
+      totalsum.income -= item.money;
+      totalsum.balance -= item.money;
+    } else {
+      totalsum.balance += item.money;
+      totalsum.expense -= item.money;
+      typebudget[item.expense] -= item.money;
+    }
     history_list = history_list.filter((t) => t.id !== item.id);
-    typebudget[item.expense] -= item.money;
     localStorage.setItem("budgetHistory", JSON.stringify(history_list));
+    localStorage.setItem("mybalance", JSON.stringify(totalsum));
     localStorage.setItem("tbudget", JSON.stringify(typebudget));
     listli.remove();
     localStorage.setItem("save_element", list_t.innerHTML);
@@ -90,18 +122,13 @@ function read(item) {
 }
 
 window.onload = function() {
-  // console.log("Debugging");
-  // console.log("tbudget: ", localStorage.getItem("tbudget"));
-  // console.log("budgethistory:", localStorage.getItem("budgetHistory"));
-  // console.log("save_element:", localStorage.getItem("save_element"));
-  //  console.log("History:", history_list);
-
   const saving_element = localStorage.getItem("save_element");
+  if (incomep) incomep.innerText = totalsum.income.toString();
+  if (expensep) expensep.innerText = totalsum.expense.toString();
+  if (balancep) balancep.innerText = totalsum.balance.toString();
   if (saving_element && list_t) {
-    // console.log("loading save_element");
     list_t.innerHTML = saving_element;
   } else {
-    //  console.log("building hisotry");
     if (list_t) {
       list_t.innerHTML = "";
       history_list.forEach((item) => {
@@ -112,43 +139,51 @@ window.onload = function() {
 };
 
 btn.addEventListener("click", () => {
-  /** @type {HTMLElement | null} */
-  let incomep = document.querySelector("#income");
-  /** @type {HTMLElement | null} */
-  let expensep = document.querySelector("#expense");
-  /** @type {HTMLElement | null} */
-  let balancep = document.querySelector("#balance");
+  let budgetcheck = false;
   console.log("check button");
   if (num.value.trim() === "") {
     alert("Missing input");
     return;
   }
-  if (incomebtn.checked === true) {
-    totalsum.income = num.value;
-    incomep.innerText = totalsum.income;
-    return;
-  }
+  let checkincome = incomebtn?.checked;
   let selectitem = "";
-  radios.forEach((rb) => {
-    if (rb.checked) {
-      selectitem = rb.id;
-    }
-  });
-  if (selectitem === "") {
-    selectitem = "other";
-  }
-  if (selectitem === "rent") {
-    typebudget.rent += Number(num.value);
-  } else if (selectitem === "food") {
-    typebudget.food += Number(num.value);
-  } else if (selectitem === "utilitie") {
-    typebudget.utilitie += Number(num.value);
-  } else if (selectitem === "transport") {
-    typebudget.transport += Number(num.value);
+  if (checkincome) {
+    budgetcheck = true;
+    selectitem = "income";
+    totalsum.income += Number(num.value);
+    totalsum.balance += Number(num.value);
   } else {
-    typebudget.other += Number(num.value);
+    if (Number(num.value) > totalsum.balance) {
+      alert("low balance " + totalsum.balance);
+      return;
+    }
+    radios.forEach((rb) => {
+      if (rb.checked) {
+        selectitem = rb.id;
+      }
+    });
+    if (selectitem === "") {
+      selectitem = "other";
+    }
+    if (selectitem === "rent") {
+      typebudget.rent += Number(num.value);
+    } else if (selectitem === "food") {
+      typebudget.food += Number(num.value);
+    } else if (selectitem === "utilitie") {
+      typebudget.utilitie += Number(num.value);
+    } else if (selectitem === "transport") {
+      typebudget.transport += Number(num.value);
+    } else {
+      typebudget.other += Number(num.value);
+    }
+    totalsum.balance -= Number(num.value);
+    totalsum.expense += Number(num.value);
+
+    budgetcheck = false;
   }
+
   let infobudget = {
+    budget: budgetcheck,
     id: Date.now(),
     description: descrip.value,
     money: Number(num.value),
@@ -162,22 +197,12 @@ btn.addEventListener("click", () => {
       .replace(",", ""),
   };
 
+  read(infobudget);
+  localStorage.setItem("mybalance", JSON.stringify(totalsum));
+  localStorage.setItem("save_element", list_t.innerHTML);
   history_list.push(infobudget);
   localStorage.setItem("tbudget", JSON.stringify(typebudget));
   localStorage.setItem("budgetHistory", JSON.stringify(history_list));
-
-  read(infobudget);
-
-  let amount = Number(totalsum.balance) - infobudget.money;
-  if (amount) {
-    totalsum.balance = amount;
-    totalsum.expense += infobudget.money;
-    expensep.innerText = totalsum.expense;
-    balancep.innerText = totalsum.balance;
-  }
-
-  localStorage.setItem("mybalance", totalsum);
-  localStorage.setItem("save_element", list_t.innerHTML);
   descrip.value = "";
   num.value = "";
   return infobudget;
