@@ -4,8 +4,6 @@ const incomebtn = document.querySelector("#incomeradio");
 const expensebtn = document.querySelector("#expenseradio");
 /** @type {HTMLElement | null} */
 const head_sec = document.querySelector(".heading_select");
-/** @type {HTMLElement | null} */
-const combo = document.querySelector(".combo");
 /** @type {NodeListOf<HTMLElement>} */
 const option = document.querySelectorAll(".option");
 /** @type {HTMLInputElement | null} */
@@ -44,8 +42,13 @@ let totalsum = {
   balance: 0,
 };
 
-expensebtn.checked == true;
+function displaymoney() {
+  if (incomep) incomep.innerText = totalsum.income.toString();
+  if (expensep) expensep.innerText = totalsum.expense.toString();
+  if (balancep) balancep.innerText = totalsum.balance.toString();
+}
 
+if (head_sec) head_sec.innerHTML = "Type: <strong>Expense</strong>";
 const savebudget = localStorage.getItem("tbudget");
 if (savebudget) {
   typebudget = JSON.parse(savebudget);
@@ -61,11 +64,11 @@ if (get_total) {
   totalsum = JSON.parse(get_total);
 }
 
+expensebtn.checked = true;
+
 function read(item) {
   if (!item) return;
-  expensep.innerText = totalsum.expense.toString();
-  balancep.innerText = totalsum.balance.toString();
-  incomep.innerText = totalsum.income.toString();
+  displaymoney();
   let listli = document.createElement("div");
   listli.classList.add("items");
   listli.style.display = "flex";
@@ -117,36 +120,32 @@ function read(item) {
     localStorage.setItem("mybalance", JSON.stringify(totalsum));
     localStorage.setItem("tbudget", JSON.stringify(typebudget));
     listli.remove();
-    localStorage.setItem("save_element", list_t.innerHTML);
+    displaymoney();
   });
 }
 
 window.onload = function() {
-  const saving_element = localStorage.getItem("save_element");
-  if (incomep) incomep.innerText = totalsum.income.toString();
-  if (expensep) expensep.innerText = totalsum.expense.toString();
-  if (balancep) balancep.innerText = totalsum.balance.toString();
-  if (saving_element && list_t) {
-    list_t.innerHTML = saving_element;
-  } else {
-    if (list_t) {
-      list_t.innerHTML = "";
-      history_list.forEach((item) => {
-        read(item);
-      });
-    }
+  if (list_t) {
+    list_t.innerHTML = "";
+    history_list.forEach((item) => {
+      read(item);
+    });
   }
+  displaymoney();
 };
 
 btn.addEventListener("click", () => {
   let budgetcheck = false;
   console.log("check button");
+
   if (num.value.trim() === "") {
     alert("Missing input");
     return;
   }
+
   let checkincome = incomebtn?.checked;
   let selectitem = "";
+
   if (checkincome) {
     budgetcheck = true;
     selectitem = "income";
@@ -199,17 +198,12 @@ btn.addEventListener("click", () => {
 
   read(infobudget);
   localStorage.setItem("mybalance", JSON.stringify(totalsum));
-  localStorage.setItem("save_element", list_t.innerHTML);
   history_list.push(infobudget);
   localStorage.setItem("tbudget", JSON.stringify(typebudget));
   localStorage.setItem("budgetHistory", JSON.stringify(history_list));
   descrip.value = "";
   num.value = "";
   return infobudget;
-});
-
-head_sec.addEventListener("click", () => {
-  combo.style.display = combo.style.display === "block" ? "none" : "block";
 });
 
 option.forEach((opt) => {
@@ -220,6 +214,8 @@ option.forEach((opt) => {
     if (radio) {
       radio.checked = true;
     }
-    head_sec.innerHTML = `Type: <strong>${displaying}</strong>`;
+    if (head_sec) {
+      head_sec.innerHTML = `Type: <strong>${displaying}</strong>`;
+    }
   });
 });
