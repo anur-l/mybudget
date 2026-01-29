@@ -1,42 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact us</title>
+    <link href="style.css" rel="stylesheet" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
-  <link href="main.css" rel="stylesheet">
-</head>
-
-<body>
-  <div class="boxlogin">
-    <div class="head">
-      <h2>Welcome</h2>
-    </div>
-    <div>
-      <div class="info">
-        <label>User</label>
-        <input class="data" type="text" id="pin"></input>
-      </div>
-      <div class="info">
-        <label>Email</label>
-        <input class="data" type="email" id="mail"></input>
-      </div>
-      <div class="info">
-        <label>password</label>
-        <input class="data" type="text" id="password"></input>
-      </div>
-      <div class="submit">
-        <button type="" id="main">
-          Submit
-        </button>
-          <a href="main.html">main</a> 
-
-      </div>
-    </div>
-  </div>
-  <script src="./pass.js">
-  </script>
-</body>
-
+  <body>
+    <header>
+      <h1>Contact us</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About us</a>
+      </nav>
+    </header>
+    <main>
+      <section>
+        <div class="boxlogin">
+          <div class="head">
+            <h2>Welcome</h2>
+          </div>
+          <div>
+            <form>
+              <div class="info">
+                <label for="user">Fullname</label>
+                <input
+                  class="data"
+                  pattern="[A-Za-z\s]+"
+                  type="text"
+                  id="user"
+                  placeholder="Enter your name"
+                  minlength="3"
+                  required
+                />
+              </div>
+              <div class="info">
+                <label for="mail">Email</label>
+                <input class="data" type="email" id="mail" required />
+              </div>
+              <div class="info">
+                <label for="password">password</label>
+                <input
+                  class="data"
+                  type="password"
+                  id="password"
+                  minlength="6"
+                  required
+                />
+              </div>
+              <div class="submit">
+                <button type="submit" id="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2025 My Budget Hub. All rights reserved.</p>
+      <p>Contact info:</p>
+      <address>
+        <p>Github:<a href="https://github.com/anur-l">github</a><br /></p>
+      </address>
+    </footer>
+    <script src="pass.js"></script>
+  </body>
 </html>
