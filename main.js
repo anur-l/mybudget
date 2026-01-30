@@ -1,7 +1,7 @@
 /** @type {HTMLInputElement | null} */
-const incomebtn = document.querySelector("#incomeradio");
+const incomebtn = document.querySelector("#income_radio");
 /** @type {HTMLInputElement | null} */
-const expensebtn = document.querySelector("#expenseradio");
+const expensebtn = document.querySelector("#expense_radio");
 /** @type {HTMLElement | null} */
 const head_sec = document.querySelector(".heading_select");
 /** @type {NodeListOf<HTMLElement>} */
@@ -24,7 +24,19 @@ let incomep = document.querySelector("#income");
 let expensep = document.querySelector("#expense");
 /** @type {HTMLElement | null} */
 let balancep = document.querySelector("#balance");
+/** @type {HTMLElement | null} */
+let moneytype = document.querySelector(".moneytype");
 
+/** @type {HTMLElement | null} */
+let rent_amount = document.querySelector("#rent_amount");
+/** @type {HTMLElement | null} */
+let food_amount = document.querySelector("#food_amount");
+/** @type {HTMLElement | null} */
+let transport_amount = document.querySelector("#transport_amount");
+/** @type {HTMLElement | null} */
+let utilitie_amount = document.querySelector("#utilitie_amount");
+/** @type {HTMLElement | null} */
+let other_amount = document.querySelector("#other_amount");
 /** @type {any[]} */
 let history_list = [];
 
@@ -42,12 +54,19 @@ let totalsum = {
   balance: 0,
 };
 
-function displaymoney() {
+function display_money() {
   if (incomep) incomep.innerText = totalsum.income.toString();
   if (expensep) expensep.innerText = totalsum.expense.toString();
   if (balancep) balancep.innerText = totalsum.balance.toString();
 }
 
+function update_category() {
+  rent_amount.textContent = typebudget.rent;
+  food_amount.textContent = typebudget.food;
+  transport_amount.textContent = typebudget.transport;
+  utilitie_amount.textContent = typebudget.utilitie;
+  other_amount.textContent = typebudget.other;
+}
 if (head_sec) head_sec.innerHTML = "Type: <strong>Expense</strong>";
 const savebudget = localStorage.getItem("tbudget");
 if (savebudget) {
@@ -68,7 +87,7 @@ expensebtn.checked = true;
 
 function read(item) {
   if (!item) return;
-  displaymoney();
+  display_money();
   let listli = document.createElement("div");
   listli.classList.add("items");
   listli.style.display = "flex";
@@ -86,7 +105,7 @@ function read(item) {
   listli.style.marginBottom = "10px";
 
   let para = document.createElement("p");
-  para.textContent = item.expense;
+  para.textContent = item.description || item.expense;
   para.style.padding = "0.5rem";
 
   let para_num = document.createElement("p");
@@ -105,7 +124,7 @@ function read(item) {
   listli.appendChild(para_data);
   listli.appendChild(delbtn);
   list_t.appendChild(listli);
-
+  update_category();
   delbtn.addEventListener("click", () => {
     if (item.budget == true) {
       totalsum.income -= item.money;
@@ -120,18 +139,19 @@ function read(item) {
     localStorage.setItem("mybalance", JSON.stringify(totalsum));
     localStorage.setItem("tbudget", JSON.stringify(typebudget));
     listli.remove();
-    displaymoney();
+    display_money();
   });
 }
 
-window.onload = function() {
+window.onload = function () {
   if (list_t) {
     list_t.innerHTML = "";
     history_list.forEach((item) => {
       read(item);
     });
   }
-  displaymoney();
+  display_money();
+  update_category();
 };
 
 btn.addEventListener("click", () => {

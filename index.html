@@ -1,126 +1,142 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Budget</title>
-    <link href="style.css" rel="stylesheet" />
-  </head>
 
-  <body>
-    <header>
-      <h1>My budget</h1>
-      <nav>
-        <a href="about.html">About us</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </header>
-    <main>
-      <section>
-        <div class="show">
-          <div class="money">
-            <div class="bmoney" id="incomediv">
-              <h3>Income</h3>
-              <p id="income">0</p>
-            </div>
-            <div class="bmoney" id="expensediv">
-              <h3>Expense</h3>
-              <p id="expense">0</p>
-            </div>
-            <div class="bmoney" id="balancediv">
-              <h3>Balance</h3>
-              <p id="balance">0</p>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Budget Tracker</title>
+  <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <h1>My Budget Tracker</h1>
+    <nav>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <div class="show">
+        <div class="money">
+          <div class="bmoney" id="incomediv">
+            <h3>Income</h3>
+            <p id="income">0</p>
+          </div>
+          <div class="bmoney" id="expensediv">
+            <h3>Expense</h3>
+            <p id="expense">0</p>
+          </div>
+          <div class="bmoney" id="balancediv">
+            <h3>Balance</h3>
+            <p id="balance">0</p>
           </div>
         </div>
-        <div class="renderbox">
+      </div>
+
+      <div class="renderbox">
+        <form id="budgetForm" novalidate>
           <div class="render">
             <div class="btnmoney">
-              <div class="typemoney">
-                <input
-                  type="radio"
-                  class="radio"
-                  id="incomeradio"
-                  name="typemoney"
-                />
-                <label for="incomeradio">Income</label>
+              <div class="type_money">
+                <input type="radio" class="radio" id="income_radio" name="type_money" />
+                <label for="income_radio">Income</label>
               </div>
-              <div class="typemoney">
-                <input
-                  type="radio"
-                  class="radio"
-                  id="expenseradio"
-                  name="typemoney"
-                  checked
-                />
-                <label for="expenseradio">Expense</label>
+              <div class="type_money">
+                <input type="radio" class="radio" id="expense_radio" name="type_money" checked />
+                <label for="expense_radio">Expense</label>
               </div>
             </div>
-  
-            <div class="inputdata">
-              <label for="num">Value</label>
-              <input type="number" id="num" />
+
+            <div class="input_data">
+              <label for="descp">Description</label>
+              <input type="text" id="descp" placeholder="e.g., Salary, Groceries" required minlength="2" />
             </div>
-            <div class="inputdata">
-              <div class="heading_select">Type</div>
+
+            <div class="input_data">
+              <label for="num">Amount</label>
+              <input type="number" id="num" min="0.01" step="0.01" placeholder="0.00" required />
+            </div>
+
+            <div class="input_data">
+              <div class="heading_select">Category</div>
               <div class="category_radio">
                 <div class="option">
-                  <input type="radio" class="radio" id="rent" name="category" />
+                  <input type="radio" class="radio" id="rent" name="category" checked required />
                   <label for="rent">Rent</label>
                 </div>
                 <div class="option">
-                  <input type="radio" class="radio" id="food" name="category" />
+                  <input type="radio" class="radio" id="food" name="category" required />
                   <label for="food">Food</label>
                 </div>
                 <div class="option">
-                  <input
-                    type="radio"
-                    class="radio"
-                    id="transport"
-                    name="category"
-                  />
+                  <input type="radio" class="radio" id="transport" name="category" required />
                   <label for="transport">Transport</label>
                 </div>
                 <div class="option">
-                  <input
-                    type="radio"
-                    class="radio"
-                    id="utilitie"
-                    name="category"
-                  />
+                  <input type="radio" class="radio" id="utilitie" name="category" required />
                   <label for="utilitie">Utilities</label>
                 </div>
                 <div class="option">
-                  <input
-                    type="radio"
-                    class="radio"
-                    id="other"
-                    name="category"
-                    checked
-                  />
+                  <input type="radio" class="radio" id="other" name="category" required />
                   <label for="other">Others</label>
                 </div>
               </div>
             </div>
-            <button class="verify">Verify</button>
+
+            <button type="submit" class="verify">Verify</button>
           </div>
+        </form>
+        <div class="display_amount">
+          <div class="money_type">
+            <h3 class="section_title">Expense summary</h3>
+            <div class="display_type" id="rent_sum">
+              <h4>Rent</h4>
+              <p id="rent_amount">0</p>
+            </div>
+            <div class="display_type" id="food_sum">
+              <h4>Food</h4>
+              <p id="food_amount">0</p>
+            </div>
+            <div class="display_type" id="transport_sum">
+              <h4>Transport</h4>
+              <p id="transport_amount">0</p>
+            </div>
+            <div class="display_type" id="utilitie_sum">
+              <h4>Utilities</h4>
+              <p id="utilitie_amount">0</p>
+            </div>
+            <div class="display_type" id="other_sum">
+              <h4>Other</h4>
+              <p id="other_amount">0</p>
+            </div>
+          </div>
+
           <div class="box">
+            <h3 class="section-title">History</h3>
             <div class="transaction"></div>
           </div>
         </div>
-      </section>
-    </main>
-    <footer>
-      <p>&copy; 2025 My Budget Hub. All rights reserved.</p>
-      <p>Contact info:</p>
-      <address>
-        <p>
-          Github:
-          <a href="https://github.com/anur-l">github</a>
-          <br />
-        </p>
-      </address>
-    </footer>
-    <script src="main.js"></script>
-  </body>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Budget Hub. All rights reserved.</p>
+    <p>Contact info:</p>
+    <address>
+      <p>
+        Github:
+        <a href="https://github.com/anur-l" target="_blank" rel="noopener noreferrer">
+          github
+        </a>
+      </p>
+    </address>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+
 </html>

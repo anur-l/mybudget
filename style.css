@@ -104,7 +104,7 @@ footer p {
 
 .renderbox {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   flex-direction: column;
   gap: 1.5rem;
   min-width: 100px;
@@ -153,7 +153,7 @@ footer p {
   font-weight: bold;
 }
 
-.inputdata {
+.input_data {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -213,7 +213,7 @@ input[type="radio"] {
   display: none;
 }
 
-.typemoney label {
+.type_money label {
   display: inline-block;
   padding: 0.7rem 1.5rem;
   background: #f0f0f0;
@@ -237,7 +237,7 @@ input[type="radio"] {
   text-align: center;
 }
 
-.typemoney label:hover,
+.type_money label:hover,
 .option label:hover {
   background-color: #74ed05;
   transform: translateY(-2px);
@@ -290,7 +290,7 @@ input[type="radio"]:checked+label {
   font-size: 0.95rem;
 }
 
-.boxlogin {
+.box_login {
   background-color: #ffffff;
   border-radius: 9px;
   border-left: 4px solid lightgreen;
@@ -329,6 +329,50 @@ input[type="radio"]:checked+label {
   box-shadow: 0 4px 8px rgba(116, 237, 2, 0.3);
 }
 
+.money_type {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.money_type h3 {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.display_type {
+  flex: 1;
+  min-width: 140px;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+  border-top: 4px solid #74ed02;
+}
+
+.display_type h3 {
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-size: 1rem;
+  width: auto;
+}
+
+.display_type p {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+
 @media (min-width: 768px) {
   header {
     flex-direction: row;
@@ -354,18 +398,6 @@ input[type="radio"]:checked+label {
 
   .bmoney p {
     font-size: 1.8rem;
-  }
-
-  header {
-    font-size: 2rem;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  header h1 {
-    margin-bottom: 0;
-    font-size: 1.5rem;
   }
 
   .boxlogin {
@@ -419,16 +451,27 @@ input[type="radio"]:checked+label {
     min-width: 250px;
     min-height: 100px;
   }
-
+   
   .renderbox {
-    flex: 2;
+    display: flex;
     flex-direction: row;
     gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .render {
+    flex: 1;
+  }
+
+  .show {
+    flex: 1;
+    max-width: 300px;
   }
 
   section {
     flex-direction: row;
-    align-items: flex-start;
+    margin: 0 auto;
+    gap: 2rem;
   }
 
   .items p {
