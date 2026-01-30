@@ -88,6 +88,15 @@ footer p {
   text-align: center;
 }
 
+main {
+ height: 100vh; 
+}
+
+section {
+ display: flex;
+ justify-content: center; 
+}
+
 .head_select {
   width: 100%;
   padding: 12px;
@@ -149,6 +158,11 @@ footer p {
 }
 
 .bmoney p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.bmoney h3 {
   font-size: 1.5rem;
   font-weight: bold;
 }
@@ -372,6 +386,12 @@ input[type="radio"]:checked+label {
   margin: 0;
 }
 
+.transaction {
+  max-height: 600px;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: auto;
+}
 
 @media (min-width: 768px) {
   header {
@@ -449,9 +469,9 @@ input[type="radio"]:checked+label {
     display: flex;
     flex-wrap: wrap;
     min-width: 250px;
-    min-height: 100px;
+    max-height: 170px;
   }
-   
+
   .renderbox {
     display: flex;
     flex-direction: row;
@@ -476,13 +496,6 @@ input[type="radio"]:checked+label {
 
   .items p {
     font-size: 1.1rem;
-  }
-
-  .transaction {
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
   }
 
   .boxlogin {
