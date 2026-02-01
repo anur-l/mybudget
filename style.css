@@ -4,8 +4,11 @@
 }
 
 body {
-  /* background-color: rgba(249 250 251 0.4); */
+  display: flex;
+  flex-direction: column;
   background: #f8f9fa;
+  gap: 1rem;
+  min-height: 100vh;
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
@@ -55,11 +58,8 @@ header nav a:hover {
   background-color: #75ed05;
 }
 
-section {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  gap: 1rem;
+main {
+  flex: 1;
 }
 
 input {
@@ -74,11 +74,8 @@ input:focus {
   border-color: #007bff;
 }
 
-section {
-  flex: 1;
-}
-
 footer {
+  margin-top: auto;
   padding-top: 3rem;
   padding-bottom: 2rem;
   background-color: white;
@@ -86,15 +83,6 @@ footer {
 
 footer p {
   text-align: center;
-}
-
-main {
- height: 100vh; 
-}
-
-section {
- display: flex;
- justify-content: center; 
 }
 
 .head_select {
@@ -136,18 +124,10 @@ section {
   background-color: transparent;
 }
 
-.money {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  box-shadow: 0 1px 1px rgba(200, 200, 200, 0.5);
-  padding: 1rem;
-  gap: 1rem;
-}
-
 .bmoney {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   background-color: #ffffff;
   align-items: center;
   min-width: auto;
@@ -165,6 +145,15 @@ section {
 .bmoney h3 {
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.money {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: 0 1px 1px rgba(200, 200, 200, 0.5);
+  padding: 1rem;
+  gap: 1rem;
 }
 
 .input_data {
@@ -258,6 +247,13 @@ input[type="radio"] {
   border-color: #ccc;
 }
 
+.box {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 9px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
 input[type="radio"]:checked+label {
   background-color: #74ed02;
   border-color: #74ed02;
@@ -311,6 +307,12 @@ input[type="radio"]:checked+label {
   padding: 2rem;
 }
 
+.send {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .data {
   font-size: 1.1rem;
   padding: 0.8rem 1rem;
@@ -323,11 +325,12 @@ input[type="radio"]:checked+label {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .submit button {
   font-size: 1.2rem;
-  width: 70%;
+  width: 100%;
   padding: 1rem;
   border-radius: 8px;
   background-color: #74ed02;
@@ -393,12 +396,18 @@ input[type="radio"]:checked+label {
   overflow-y: auto;
 }
 
+.small_box {
+  height: 80vh;
+  margin: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (min-width: 768px) {
   header {
     flex-direction: row;
     justify-content: space-between;
-    text-align: left;
-    align-items: center;
   }
 
   header h1 {
@@ -424,20 +433,6 @@ input[type="radio"]:checked+label {
     padding: 2.5rem;
     margin: 3rem auto;
   }
-
-  .submit {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .submit button {
-    width: 60%;
-  }
-
-  .submit a {
-    width: 35%;
-    text-align: center;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -455,17 +450,23 @@ input[type="radio"]:checked+label {
     font-size: 1.1rem;
   }
 
+  section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
   .money {
     display: flex;
-    align-items: center;
     gap: 1rem;
     width: 90%;
-    flex-direction: column;
   }
 
   .bmoney {
     flex: 1;
-    padding: 1rem;
+    padding: 2rem 1rem;
     display: flex;
     flex-wrap: wrap;
     min-width: 250px;
@@ -485,13 +486,7 @@ input[type="radio"]:checked+label {
 
   .show {
     flex: 1;
-    max-width: 300px;
-  }
-
-  section {
-    flex-direction: row;
-    margin: 0 auto;
-    gap: 2rem;
+    max-width: 100%;
   }
 
   .items p {

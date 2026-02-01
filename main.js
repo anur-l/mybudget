@@ -127,6 +127,11 @@ function read(item) {
   update_category();
   delbtn.addEventListener("click", () => {
     if (item.budget == true) {
+      const amount = Number(item.money);
+      if ((totalsum.balance - amount < 0)) {
+        alert(`Balance will became negtaive ${totalsum.balance - amount} try to remove expense first inorder to remove income`);
+        return;
+      }
       totalsum.income -= item.money;
       totalsum.balance -= item.money;
     } else {
@@ -140,10 +145,11 @@ function read(item) {
     localStorage.setItem("tbudget", JSON.stringify(typebudget));
     listli.remove();
     display_money();
+    update_category();
   });
 }
 
-window.onload = function () {
+window.onload = function() {
   if (list_t) {
     list_t.innerHTML = "";
     history_list.forEach((item) => {
