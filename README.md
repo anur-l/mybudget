@@ -12,6 +12,12 @@ A personal budget tracking website which help user to track there budget.
 - Doesn't need internet to use it.
 - Summary of Expense type
 
+## Cross-Platform Support
+- This project is fully responsive and optimized for:
+   - Laptops & Desktops
+   - Tablets 
+   - Mobile Phones
+
 ## Webpages
 
 - **Home** - Budget tracker
